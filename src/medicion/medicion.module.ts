@@ -1,5 +1,5 @@
 import { Module } from '@nestjs/common';
-import { DatabaseModule } from 'src/database/database.module';
+import { DatabaseModule } from '../database/database.module';
 import { MedicionController } from './medicion.controller';
 import { MedicionService } from './medicion.service';
 import { medicionProviders } from './medicion.providers';
