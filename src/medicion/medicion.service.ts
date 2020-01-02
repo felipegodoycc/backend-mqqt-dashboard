@@ -23,7 +23,7 @@ export class MedicionService {
                                 $lte: new Date(hasta) },
                         topic }
                     },
-            { $project: { value: 1, topic: 1 , hora: { $hour: '$date'} }},
+            { $project: { value: 1, topic: 1 , hora: { $hour: { date: '$date', timezone: 'America/Santiago'}} }},
             { $group: { _id: '$hora', value: { $avg: '$value'} }},
             { $sort: { _id: 1 }},
            ])
