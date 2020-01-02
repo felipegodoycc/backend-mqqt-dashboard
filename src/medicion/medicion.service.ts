@@ -25,6 +25,7 @@ export class MedicionService {
                     },
             { $project: { value: 1, topic: 1 , hora: { $hour: '$date'} }},
             { $group: { _id: '$hora', value: { $avg: '$value'} }},
+            { $sort: { _id: 1 }},
            ])
 
         return all;
