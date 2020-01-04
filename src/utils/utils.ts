@@ -1,23 +1,6 @@
 import _ = require("lodash");
 import { integer } from "aws-sdk/clients/lightsail";
 
-/**
- * Deep diff between two object, using lodash
- * @param  {Object} object Objecto a comparar
- * @param  {Object} base   Objecto base
- * @return {Object}        Devuelve diferencias
- */
-export function difference(object: object, base: object){
-	function changes(object, base) {
-		return _.transform(object, function(result, value, key) {
-			if (!_.isEqual(value, base[key])) {
-				result[key] = (_.isObject(value) && _.isObject(base[key])) ? changes(value, base[key]) : value;
-			}
-		});
-	}
-	return changes(object, base);
-}
-
 export function decodeOID(objectID:string):{ets:integer,mid:integer,pid:integer,uid:integer,fts:string}{
 	/**
 	 * @returns ets: (int)  Epoch TimeStamp
