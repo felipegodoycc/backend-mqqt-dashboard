@@ -24,6 +24,23 @@ export class EwelinkController {
         })
     }
 
+    @Get(':id')
+    async getDevice(@Res() res: Response, @Param('id') deviceID: string){
+        this.ewelinkService.getDevice(deviceID)
+        .then( device => {
+            res.status(HttpStatus.OK).json({
+                device,
+                ok: true
+            })
+        })
+        .catch( err =>{ 
+            console.log("Error ", err)
+            return res.status(HttpStatus.BAD_REQUEST).json({
+                err
+            })
+        })
+    }
+
     @Get(':id/state')
     async getState(@Res() res: Response, @Param('id') deviceID: string ){
         this.ewelinkService.getDeviceState(deviceID)

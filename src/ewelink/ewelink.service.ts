@@ -20,6 +20,11 @@ export class EwelinkService {
         console.log(region)
     }
 
+    async getDevice(deviceID:string): Promise<Device> {
+        const device = await this.connection.getDevice(deviceID);
+        return device;
+    }
+
     async getDevices(): Promise<Device[]>{
         const dispositivos = await this.connection.getDevices(); 
         console.log("Dispositivos conectados: ", dispositivos.length)
