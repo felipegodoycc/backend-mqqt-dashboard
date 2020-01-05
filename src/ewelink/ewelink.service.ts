@@ -41,7 +41,8 @@ export class EwelinkService {
         return status;
     }
 
-    async setDeviceState(devideID: string, status: string, channel:string): Promise<DeviceState> {
+    async setDeviceState(devideID: string, status: string, body): Promise<DeviceState> {
+        const channel = body.channel || "1";
         const new_status = await this.connection.setDevicePowerState(devideID,status,channel);
         return new_status;
     }

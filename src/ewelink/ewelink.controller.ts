@@ -1,4 +1,4 @@
-import { Controller, Get, Res, HttpStatus, Param, Put, Query } from '@nestjs/common';
+import { Controller, Get, Res, HttpStatus, Param, Put, Query, Body } from '@nestjs/common';
 import { Response } from 'express';
 import { EwelinkService } from './ewelink.service';
 
@@ -58,7 +58,7 @@ export class EwelinkController {
         })
     }
 
-    @Put(':id/toggle')
+    @Get(':id/toggle')
     async toggleDevice(@Res() res: Response, @Param('id') deviceID: string) {
         this.ewelinkService.toogleDevice(deviceID)
         .then( status => {
@@ -76,8 +76,8 @@ export class EwelinkController {
     }
 
     @Put(':id/set/:status')
-    async setStatus(@Res() res: Response, @Param('id') deviceID: string, @Param('status') status: string, @Query('ch') channel = '1'){
-        this.ewelinkService.setDeviceState(deviceID,status,channel)
+    async setStatus(@Res() res: Response, @Param('id') deviceID: string, @Param('status') status: string, @Body() body){
+        this.ewelinkService.setDeviceState(deviceID,status,body)
         .then( status => {
             res.status(HttpStatus.OK).json({
                 ok: true,
