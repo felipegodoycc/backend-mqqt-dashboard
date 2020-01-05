@@ -4,8 +4,6 @@ services:
   api_server:
     container_name: api_server
     build: .
-    volumes:
-      - './:/src/'
     ports:
       - "3035:3001"
     environment: 
