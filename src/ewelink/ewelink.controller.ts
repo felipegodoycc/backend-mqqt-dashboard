@@ -58,9 +58,9 @@ export class EwelinkController {
         })
     }
 
-    @Get(':id/toggle')
-    async toggleDevice(@Res() res: Response, @Param('id') deviceID: string) {
-        this.ewelinkService.toogleDevice(deviceID)
+    @Get(':id/toggle/channel/:ch')
+    async toggleDevice(@Res() res: Response, @Param('id') deviceID: string, @Param('ch') channel:string) {
+        this.ewelinkService.toogleDevice(deviceID,channel)
         .then( status => {
             res.status(HttpStatus.OK).json({
                 ok: true,

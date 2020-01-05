@@ -26,8 +26,8 @@ export class EwelinkService {
         return dispositivos;
     }
 
-    async toogleDevice(deviceID: string): Promise<DeviceState> {
-        const status = await this.connection.toggleDevice(deviceID);
+    async toogleDevice(deviceID: string, channel:string): Promise<DeviceState> {
+        const status = await this.connection.toggleDevice(deviceID, channel);
         return status;
     }
 
