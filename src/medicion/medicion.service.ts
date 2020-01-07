@@ -31,7 +31,7 @@ export class MedicionService {
     }
 
     async getUltimoRegistro(topic: string) {
-        const registro = await this.medicionModel.find({ topic: 'casa/patio/temp' }).sort({ _id: -1}).limit(1);
+        const registro = await this.medicionModel.find({ topic }).sort({ _id: -1}).limit(1);
         return registro[0];
     }
 

@@ -1,4 +1,4 @@
-import { Controller, Get, Res, Param, HttpStatus, Query } from '@nestjs/common';
+import { Controller, Get, Res, Param, HttpStatus, Query, Options } from '@nestjs/common';
 import { MedicionService } from './medicion.service';
 import { Response } from 'express';
 import { getHeapStatistics } from 'v8';
@@ -44,8 +44,8 @@ export class MedicionController {
         })
     }
 
-    @Get('last/:topic')
-    async GetUltimoRegistro(@Res() res:Response, @Param('topic') topic){
+    @Get('last')
+    async GetUltimoRegistro(@Res() res:Response, @Query('topic') topic){
         this.medicionService.getUltimoRegistro(topic)
         .then( registro => {
             return res.status(HttpStatus.OK).json({
