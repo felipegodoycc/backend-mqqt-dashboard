@@ -44,4 +44,21 @@ export class MedicionController {
         })
     }
 
+    @Get('last/:topic')
+    async GetUltimoRegistro(@Res() res:Response, @Param('topic') topic){
+        this.medicionService.getUltimoRegistro(topic)
+        .then( registro => {
+            return res.status(HttpStatus.OK).json({
+                ok: true,
+                registro,
+            })
+        })
+        .catch( err =>{ 
+            console.log("Error ", err)
+            return res.status(HttpStatus.BAD_REQUEST).json({
+                err
+            })
+        })
+    }
+
 }
