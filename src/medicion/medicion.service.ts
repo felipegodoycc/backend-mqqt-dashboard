@@ -24,10 +24,17 @@ export class MedicionService {
                                 topic: { $in: topics2 }  },
                             },
                     { $project: { value: 1, topic: 1 , hora: { $hour: { date: '$date', timezone: 'America/Santiago'}} }},
-                    { $group: { _id: { topic: '$topic', hora: '$hora' }, value: { $avg: '$value'}, min: { $min: "$value"}, max: { $max: "$value"} }},
+                    { $group: { _id: { topic: '$topic', hora: '$hora' }, value: { $avg: '$value'}, min: { $min: '$value'}, max: { $max: '$value'} }},
                     { $sort: { _id: 1 }} ,
-                    { $group: { _id: '$_id.topic', values: { $push: { value: '$value', hora: '$_id.hora', min: "$min", max: "$max" } } } },
-                    { $project: { _id: 1, 'values.value': 1 , 'values.hora':1 , minValue: { $min: "$values.min" }, maxValue: { $max: "$values.max" } }}
+                    { $group: { _id: '$_id.topic', values: { $push: { value: '$value', hora: '$_id.hora', min: '$min', max: '$max' } } } },
+                    { $project: {
+                        '_id': 1,
+                        'values.value': 1 ,
+                        'values.hora': 1 ,
+                        'minValue': { $min: '$values.min' },
+                        'maxValue': { $max: '$values.max' },
+                        }
+                    },
                    ]);
         return all;
     }
