@@ -12,7 +12,6 @@ export class EwelinkService {
             email: 'felipe.godoy@ceinf.cl',
             password: 'pipeaxe96'
         })
-        this.getDevices();
     }
 
     async getRegion(){
@@ -27,7 +26,6 @@ export class EwelinkService {
 
     async getDevices(): Promise<Device[]>{
         const dispositivos = await this.connection.getDevices(); 
-        console.log("Dispositivos conectados: ", dispositivos.length)
         return dispositivos;
     }
 
