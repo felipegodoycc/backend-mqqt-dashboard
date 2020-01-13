@@ -14,19 +14,21 @@ export class MedicionService {
         return { all, total };
     }
 
-    async getPorHora(desde: Date, hasta: Date, topic: string) {
+    async getPorHora(desde: Date, hasta: Date, topics: string) {
+        const topics2 = topics.split(',');
         const all = await this.medicionModel.aggregate([
-            { $match: {
-                        date: {
-                                $gte: new Date(desde),
-                                $lte: new Date(hasta) },
-                        topic },
-                    },
-            { $project: { value: 1, topic: 1 , hora: { $hour: { date: '$date', timezone: 'America/Santiago'}} }},
-            { $group: { _id: '$hora', value: { $avg: '$value'} }},
-            { $sort: { _id: 1 }},
-           ]);
-
+                    { $match: {
+                                date: {
+                                    $gte: new Date(desde),
+                                    $lte: new Date(hasta) },
+                                topic: { $in: topics2 }  },
+                            },
+                    { $project: { value: 1, topic: 1 , hora: { $hour: { date: '$date', timezone: 'America/Santiago'}} }},
+                    { $group: { _id: { topic: '$topic', hora: '$hora' }, value: { $avg: '$value'}, min: { $min: "$value"}, max: { $max: "$value"} }},
+                    { $sort: { _id: 1 }} ,
+                    { $group: { _id: '$_id.topic', values: { $push: { value: '$value', hora: '$_id.hora', min: "$min", max: "$max" } } } },
+                    { $project: { _id: 1, 'values.value': 1 , 'values.hora':1 , minValue: { $min: "$values.min" }, maxValue: { $max: "$values.max" } }}
+                   ]);
         return all;
     }
 
