@@ -40,7 +40,7 @@ export class UserService {
             newUser.reset_password = true;
             newUser.reset_token = this.authService.createJwtPayload(newUser).token;
         }
-        
+        await newUser.save();
         return newUser;
     }
 
