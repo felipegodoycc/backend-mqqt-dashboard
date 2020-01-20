@@ -1,7 +1,6 @@
 import { Controller, Get, Res, Param, HttpStatus, Query, Options } from '@nestjs/common';
 import { MedicionService } from './medicion.service';
 import { Response } from 'express';
-import { getHeapStatistics } from 'v8';
 
 @Controller('medicion')
 export class MedicionController {
