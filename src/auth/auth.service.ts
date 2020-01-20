@@ -35,10 +35,7 @@ export class AuthService {
         const user = await this.userService.getUser(userToAttempt._id);
         
         return new Promise(async (resolve, reject) => {
-            let loginPassword = this.simpleCrypto.decrypt(loginAttempt.password);
-            // console.log('Clave desencriptada', loginPassword)
-            if(!loginPassword) return reject('Clave mal encriptada');
-            // Check the supplied password against the hash stored for this email address
+            let loginPassword = loginAttempt.password;
             if(user.checkPassword(loginPassword))
              {
                 const {token} =this.createJwtPayload(userToAttempt);
