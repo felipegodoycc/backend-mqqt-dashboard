@@ -17,7 +17,7 @@ import { Response } from 'express';
 import { AuthGuard } from '@nestjs/passport';
 
 @Controller('users')
-//@UseGuards(AuthGuard())
+@UseGuards(AuthGuard())
 export class UserController {
     constructor(private userservice: UserService){}
 

@@ -1,8 +1,10 @@
-import { Controller, Get, Res, HttpStatus, Param, Put, Query, Body } from '@nestjs/common';
+import { Controller, Get, Res, HttpStatus, Param, Put, Query, Body, UseGuards } from '@nestjs/common';
 import { Response } from 'express';
 import { EwelinkService } from './ewelink.service';
+import { AuthGuard } from '@nestjs/passport';
 
 @Controller('ewelink/device')
+@UseGuards(AuthGuard())
 export class EwelinkController {
     constructor(private ewelinkService: EwelinkService){
     }
