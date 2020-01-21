@@ -20,7 +20,7 @@ import { ConfigService } from '../config/config.service';
       useFactory: async(config: ConfigService) => ({
         secret: config.get('SECRET_KEY_JWT'),
         signOptions:{
-          expiresIn: '1d'
+          expiresIn: '3d'
         }
       }),
       inject: [ConfigService]      
