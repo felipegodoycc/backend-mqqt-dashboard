@@ -1,6 +1,6 @@
 import { Injectable } from '@nestjs/common';
 import { Device, PowerUsage, DeviceState } from './interfaces/device.interface';
-import { ConfigService } from 'src/config/config.service';
+import { ConfigService } from '../config/config.service';
 
 const eWelink = require('ewelink-api');
 
