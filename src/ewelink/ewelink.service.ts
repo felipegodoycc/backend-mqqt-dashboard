@@ -1,13 +1,14 @@
 import { Injectable } from '@nestjs/common';
 import { Device, PowerUsage, DeviceState } from './interfaces/device.interface';
-// import eWelink from 'ewelink-api';
+import { ConfigService } from 'src/config/config.service';
+
 const eWelink = require('ewelink-api');
 
 @Injectable()
 export class EwelinkService {
     private connection;
 
-    constructor(){
+    constructor(private configService: ConfigService){
         this.connection = new eWelink({
             email: 'felipe.godoy@ceinf.cl',
             password: 'pipeaxe96'
