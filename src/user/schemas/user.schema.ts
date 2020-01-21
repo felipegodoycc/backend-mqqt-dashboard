@@ -19,6 +19,20 @@ const UserSchema = new mongoose.Schema({
         required: ['true', 'Email es obligatorio'],
         match: [/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/, 'Email incorrecto']
     },
+    role: {
+        admin: {
+            type: Boolean,
+            default: false,
+        },
+        control: {
+            type: Boolean,
+            default: false,
+        },
+        view: {
+            type: Boolean,
+            default: true,
+        }
+    },
     userdata : {
         name: {
             type: String,
