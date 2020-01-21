@@ -2,7 +2,7 @@ import { Module } from '@nestjs/common';
 import { EwelinkService } from './ewelink.service';
 import { EwelinkController } from './ewelink.controller';
 import { PassportModule } from '@nestjs/passport';
-import { ConfigModule } from 'src/config/config.module';
+import { ConfigModule } from '../config/config.module';
 
 @Module({
   imports: [
