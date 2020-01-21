@@ -8,36 +8,36 @@ const eWelink = require('ewelink-api');
 export class EwelinkService {
     private connection;
 
-    constructor(private configService: ConfigService){
+    constructor(private configService: ConfigService) {
         this.connection = new eWelink({
-            email: 'felipe.godoy@ceinf.cl',
-            password: 'pipeaxe96'
-        })
+            email: configService.get('EWELINK_USER'),
+            password: configService.get('EWELINK_PASSWORD'),
+        });
     }
 
-    async getRegion(){
+    async getRegion() {
         const region = await this.connection.getRegion();
-        console.log(region)
+        console.log(region);
     }
 
-    async getDevice(deviceID:string): Promise<Device> {
+    async getDevice(deviceID: string): Promise<Device> {
         const device = await this.connection.getDevice(deviceID);
         return device;
     }
 
-    async getDevices(): Promise<Device[]>{
-        const dispositivos = await this.connection.getDevices(); 
+    async getDevices(): Promise<Device[]> {
+        const dispositivos = await this.connection.getDevices();
         return dispositivos;
     }
 
-    async toogleDevice(deviceID: string, channel:string): Promise<DeviceState> {
+    async toogleDevice(deviceID: string, channel: string): Promise<DeviceState> {
         const status = await this.connection.toggleDevice(deviceID, channel);
         return status;
     }
 
     async getPowerUsage(deviceID: string): Promise<PowerUsage> {
         const usage = await this.connection.getDevicePowerUsage(deviceID);
-        return usage
+        return usage;
     }
 
     async getDeviceState(deviceID: string): Promise<DeviceState> {
@@ -46,10 +46,9 @@ export class EwelinkService {
     }
 
     async setDeviceState(devideID: string, status: string, body): Promise<DeviceState> {
-        const channel = body.channel || "1";
-        const new_status = await this.connection.setDevicePowerState(devideID,status,channel);
-        return new_status;
+        const channel = body.channel || '1';
+        const newStatus = await this.connection.setDevicePowerState(devideID, status, channel);
+        return newStatus;
     }
-
 
 }
