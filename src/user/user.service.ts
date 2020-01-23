@@ -41,8 +41,6 @@ export class UserService {
             newUser.password = newUser.username;
             newUser.reset_password = true;
             newUser.reset_token = this.authService.createJwtPayload(newUser).token;
-            await this.sendEmail(newUser);
-            console.log('Email enviado')
             }
         await newUser.save();
         return newUser;
@@ -50,15 +48,15 @@ export class UserService {
 
     async sendEmail(user: User){
         return this.mailerService.sendMail({
+            from: 'soporte@ifcomputing.com',
             to: user.email, // list of receivers
-            from: 'soporte@ifcomputing.com', // sender address
             subject: 'Confirmacion y cambio de contraseña', // Subject line
             template: 'cambioContraseña',
             context: {
                 user,
                 url: 'http://ifcomputing.com/auth/reset_password/',
             }
-        })
+        });
     }
 
     async updateUser(userID: any, createUserDTO: CreateUserDTO): Promise<User> {

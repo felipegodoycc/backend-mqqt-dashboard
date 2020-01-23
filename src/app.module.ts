@@ -17,7 +17,7 @@ import { ConfigService } from './config/config.service';
         transport:{ host: 'smtp-pulse.com', port: 2525,
                     auth: { user: 'pipexth@gmail.com', pass: 'fXNkYmmoF4f3at'} },
         defaults: {
-          from:'"nest-modules" <modules@nestjs.com>',
+          from: 'soporte@ifcomputing.com',
         },
         template: {
           dir: __dirname + '../../templates',
