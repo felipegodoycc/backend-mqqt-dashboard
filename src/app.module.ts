@@ -20,7 +20,7 @@ import { ConfigService } from './config/config.service';
           from:'"nest-modules" <modules@nestjs.com>',
         },
         template: {
-          dir: __dirname + '/templates',
+          dir: __dirname + '../../templates',
           adapter: new HandlebarsAdapter(),
           options: {
             strict: true,
