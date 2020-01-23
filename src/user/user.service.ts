@@ -41,6 +41,8 @@ export class UserService {
             newUser.password = newUser.username;
             newUser.reset_password = true;
             newUser.reset_token = this.authService.createJwtPayload(newUser).token;
+            await this.sendEmail(newUser);
+            console.log('Email enviado')
             }
         await newUser.save();
         return newUser;
