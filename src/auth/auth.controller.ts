@@ -20,7 +20,7 @@ export class AuthController {
             console.log(err)
             res.status(HttpStatus.BAD_REQUEST).json({
                 ok:false,
-                err: err.message
+                err
             })
         })
     }
