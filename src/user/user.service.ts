@@ -7,12 +7,14 @@ import * as bcrypt from 'bcrypt';
 import { AuthService } from '../auth/auth.service';
 import * as _ from 'lodash';
 import { ObjectID } from 'bson';
+import { MailerService } from '@nest-modules/mailer';
 
 @Injectable()
 export class UserService {
     constructor(
         @Inject('USER_MODEL') private readonly userModel,
         @Inject(forwardRef(() => AuthService)) private authService: AuthService,
+        private readonly mailerService: MailerService,
     ) {}
 
     async getAllUser(options: Object) {
@@ -39,9 +41,22 @@ export class UserService {
             newUser.password = newUser.username;
             newUser.reset_password = true;
             newUser.reset_token = this.authService.createJwtPayload(newUser).token;
-        }
+            }
         await newUser.save();
         return newUser;
+    }
+
+    async sendEmail(user: User){
+        return this.mailerService.sendMail({
+            to: user.email, // list of receivers
+            from: 'soporte@ifcomputing.com', // sender address
+            subject: 'Confirmacion y cambio de contraseña', // Subject line
+            template: 'cambioContraseña',
+            context: {
+                user,
+                url: 'http://ifcomputing.com/auth/reset_password/',
+            }
+        })
     }
 
     async updateUser(userID: any, createUserDTO: CreateUserDTO): Promise<User> {
