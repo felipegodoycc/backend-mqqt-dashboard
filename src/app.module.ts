@@ -5,6 +5,7 @@ import { MedicionModule } from './medicion/medicion.module';
 import { EwelinkModule } from './ewelink/ewelink.module';
 import { MailerModule, HandlebarsAdapter } from '@nest-modules/mailer';
 import { ConfigService } from './config/config.service';
+import { ConfigModule } from './config/config.module';
 
 @Module({
   imports: [
@@ -13,11 +14,20 @@ import { ConfigService } from './config/config.service';
     MedicionModule,
     EwelinkModule,
     MailerModule.forRootAsync({
-      useFactory: (config: ConfigService) => ({
-        transport:{ host: 'smtp-pulse.com', port: 2525,
-                    auth: { user: 'pipexth@gmail.com', pass: 'fXNkYmmoF4f3at'} },
+      imports: [ConfigModule],
+      inject: [ConfigService],
+      useFactory: async (config: ConfigService) => ({
+        transport: {
+          host: config.get('SMTP_URL'),
+          secure: true,
+          port: config.get('SMTP_PORT'),
+          auth: {
+            user: config.get('SMTP_USER'),
+            pass: config.get('SMTP_PASSWORD'),
+          },
+        },
         defaults: {
-          from: 'soporte@ifcomputing.com',
+          from: '"Soporte" <soporte@ifcomputing.com>',
         },
         template: {
           dir: __dirname + '../../templates',
