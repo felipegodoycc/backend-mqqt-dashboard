@@ -41,6 +41,7 @@ export class UserService {
             newUser.password = newUser.username;
             newUser.reset_password = true;
             newUser.reset_token = this.authService.createJwtPayload(newUser).token;
+            await this.sendEmail(newUser);
             }
         await newUser.save();
         return newUser;
@@ -48,13 +49,12 @@ export class UserService {
 
     async sendEmail(user: User){
         return this.mailerService.sendMail({
-            from: 'soporte@ifcomputing.com',
             to: user.email, // list of receivers
             subject: 'Confirmacion y cambio de contraseña', // Subject line
             template: 'cambioContraseña',
             context: {
                 user,
-                url: 'http://ifcomputing.com/auth/reset_password/',
+                url: `http://ifcomputing.com/auth/reset_password/${ user.reset_token }`,
             }
         });
     }
@@ -102,7 +102,8 @@ export class UserService {
         const data = {
             reset_password: false,
             reset_token: '',
-            password: bcrypt.hashSync(newPasswordDTO.new_password, 10)
+            password: bcrypt.hashSync(newPasswordDTO.new_password, 10),
+            active: true,
         };
         const user = await this.userModel.findOneAndUpdate({ reset_token }, data, { new: true}).exec();
         console.log('[USUARIOS] user', user);
