@@ -12,7 +12,8 @@ export const databaseProviders = [
       mongoose.set('debug', true);
       mongoose.plugin(mongooseFindAndFilter);
       console.log("Conectando a mongo...")
-      return await mongoose.connect(`mongodb://${config.get('DB_USER')}:${config.get('DB_PASSWORD')}@${config.get('DB_HOST')}:${config.get('DB_PORT')}/${config.get('DB_NAME')}`,
-            {useNewUrlParser: true, useCreateIndex: true, useFindAndModify: false, useUnifiedTopology: true})}
+      return await mongoose.connect(
+        `mongodb://${config.get('DB_USER')}:${config.get('DB_PASSWORD')}@${config.get('DB_HOST')}:${config.get('DB_PORT')}/${config.get('DB_NAME')}`,
+            {useNewUrlParser: true, useCreateIndex: true, useFindAndModify: false })}
   }
 ];
