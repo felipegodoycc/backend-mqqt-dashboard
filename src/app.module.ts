@@ -6,6 +6,7 @@ import { EwelinkModule } from './ewelink/ewelink.module';
 import { MailerModule, HandlebarsAdapter } from '@nest-modules/mailer';
 import { ConfigService } from './config/config.service';
 import { ConfigModule } from './config/config.module';
+import { TopicModule } from './topic/topic.module';
 
 @Module({
   imports: [
@@ -13,6 +14,7 @@ import { ConfigModule } from './config/config.module';
     UserModule,
     MedicionModule,
     EwelinkModule,
+    TopicModule,
     MailerModule.forRootAsync({
       imports: [ConfigModule],
       inject: [ConfigService],
