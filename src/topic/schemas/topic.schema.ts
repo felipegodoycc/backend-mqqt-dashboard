@@ -8,5 +8,9 @@ export const TopicSchema = new mongoose.Schema({
     topic: {
         type: String,
         required: true
+    },
+    active: {
+        type: Boolean,
+        default: true
     }
 });

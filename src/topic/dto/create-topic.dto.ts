@@ -1,4 +1,5 @@
 export class CreateTopicDTO {
-    name: string
-    topic: string
+    name: string;
+    topic: string;
+    active: boolean;
 }
