@@ -15,6 +15,20 @@ export const TopicSchema = new mongoose.Schema({
     type: {
         type: String
     },
+    minValue: {
+        type: Number,
+        default: 0
+    },
+    maxValue: {
+        type: Number,
+        default: 100
+    },
+    onSwitchValue: {
+        type: String,
+    },
+    offSwitchValue: {
+        type: String
+    },
     active: {
         type: Boolean,
         default: true
