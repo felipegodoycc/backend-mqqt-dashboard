@@ -12,6 +12,9 @@ export const TopicSchema = new mongoose.Schema({
     unit: {
         type: String
     },
+    type: {
+        type: String
+    },
     active: {
         type: Boolean,
         default: true
