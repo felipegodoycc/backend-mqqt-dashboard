@@ -113,6 +113,24 @@ export class UserController {
         })
     }
 
+    @Put(':id/desactivate')
+    async desactiveUser(@Res() res, @Param('id') userID ){
+        this.userservice.activeUser(userID)
+        .then( user => {
+            return res.status(HttpStatus.OK).json({
+                ok:true,
+                user
+            })
+        })
+        .catch( err => {
+            console.log(err);
+            return res.status(HttpStatus.BAD_REQUEST).json({
+                ok: false,
+                err
+            })
+        })
+    }
+
 
 
     @Delete(':id')
