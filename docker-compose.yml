@@ -10,6 +10,13 @@ services:
       - NODE_ENV=produccion
     networks:
       - mynetwork
+  mongo:
+    image: mongo
+    restart: always
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: user
+      MONGO_INITDB_ROOT_PASSWORD: pass
+
 
 networks:
   mynetwork:
